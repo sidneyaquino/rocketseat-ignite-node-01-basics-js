@@ -1,33 +1,39 @@
 const express = require('express');
 const app = express();
 
+const _COURSES_ = "courses"
+
 app.get("/", (resquest, response) => {                                    
-  return response.json({"message": "Hello JSON! =P"});                     
+  return response.json({"message": "Hello JSON! =P"});        // Text.
 });
-app.get("/courses", (request, response) => {
-  return response.json(["Course 1", "Course 2", "Course 3"])
+app.get(`/${_COURSES_}`, (request, response) => {
+  return response.json(["Course 1", "Course 2", "Course 3"])  //  Array.
 });
 
 // Route Params.
-app.put("/courses/:id", (request, response) => {
+app.put(`/${_COURSES_}/:id`, (request, response) => {
   const params = request.params;
+  console.log(params);
   return response.json(["Course 6", "Course 2", "Course 3", "Course 4"]);  
 }); 
-app.patch("/courses/:id", (request, response) => {
+app.patch(`/${_COURSES_}/:id`, (request, response) => {
   const {id} = request.params;
+  console.log(id);
   return response.json(["Course 6", "Course 7", "Course 3", "Course 4"]);
 });
 
 // Query Params.
-app.delete("/courses/", (request, response) => {
-  const query = request.query;
+app.delete(`/${_COURSES_}/`, (request, response) => {
+  const {query} = request;
+  console.log(query);
   return response.json(["Course 6", "Course 7", "Course 3"]);
 });
 
 // Body Params.
 app.use(express.json());  // Parse json.
-app.post("/courses", (request, response) => {
-  const body = request.body;
+app.post(`/${_COURSES_}`, (request, response) => {
+  const {body} = request;
+  console.log(body);
   return response.json(["Course 1", "Course 2", "Course 3", "Course 4"]);
 });
 
